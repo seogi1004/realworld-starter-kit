@@ -1,9 +1,10 @@
+import Layout from '../components/Layout';
 import type { NextPage } from 'next'
 
 const Register: NextPage = () => {
   return (
     <>
-      register.tsx
+      <Layout>register.tsx</Layout>
     </>
   )
 }

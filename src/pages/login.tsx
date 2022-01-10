@@ -1,9 +1,10 @@
+import Layout from '../components/Layout';
 import type { NextPage } from 'next'
 
 const Login: NextPage = () => {
   return (
     <>
-      login.tsx
+      <Layout>login.tsx</Layout>
     </>
   )
 }
