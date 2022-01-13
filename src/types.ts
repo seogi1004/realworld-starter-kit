@@ -5,3 +5,7 @@ export type User = {
   image: string;
   token: string;
 };
+
+export interface PageProps {
+  user: User;
+}

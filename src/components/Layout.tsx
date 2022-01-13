@@ -1,12 +1,11 @@
 import React, { ReactNode } from 'react';
 import ToolBar from './ToolBar';
 import Footer from './Footer';
-import { User } from '../types'
+import type { PageProps } from '../types'
 
 type Props = {
-    user: User | null,
     children: ReactNode
-}
+} & PageProps;
 
 const Layout = ({ user, children }: Props) => {
     return (

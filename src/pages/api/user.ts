@@ -8,7 +8,6 @@ export default async function handler(
   res: NextApiResponse<User | null>
 ) {
   const { token } = req.cookies;
-
   const apiRes = await fetch(`${API_HOST}/user`, {
     method: "GET", // or 'PUT'
     headers: {

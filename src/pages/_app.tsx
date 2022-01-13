@@ -1,5 +1,8 @@
-import Head from 'next/head'
-import type { AppProps } from 'next/app'
+import type { AppContext, AppInitialProps, AppProps } from 'next/app';
+import cookies from 'next-cookies'
+import App from 'next/app';
+import Head from 'next/head';
+import { HOST } from '../constants';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -15,5 +18,25 @@ function MyApp({ Component, pageProps }: AppProps) {
     </>
   )
 }
+
+MyApp.getInitialProps = async (appContext: AppContext): Promise<AppInitialProps> => {
+  const appProps = await App.getInitialProps(appContext);
+  const { ctx } = appContext;
+
+  const { token } = cookies(ctx);
+  const res = await fetch(`${HOST}/api/user`, {
+    headers: {
+      'cookie': `token=${token}; path=/;`
+    }
+  });
+  const user = res.status === 401 ? null : await res.json()
+
+  return {
+    ...appProps,
+    pageProps: {
+      user,
+    },
+  };
+};
 
 export default MyApp

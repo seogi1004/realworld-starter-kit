@@ -1,8 +1,9 @@
 import type { NextPage } from 'next';
+import type { PageProps } from '../types';
 import React, { useState } from 'react';
 import Layout from '../components/Layout';
 
-const Login: NextPage = () => {
+const Login: NextPage<PageProps> = ({ user }: PageProps) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   
@@ -13,7 +14,7 @@ const Login: NextPage = () => {
 
   return (
     <>
-      <Layout user={null}>
+      <Layout user={user}>
       <div className="auth-page">
         <div className="container page">
           <div className="row">

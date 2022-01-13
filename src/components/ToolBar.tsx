@@ -1,10 +1,6 @@
-import { User } from '../types';
+import type { PageProps } from '../types';
 
-type Props = {
-    user: User | null
-}
-
-const ToolBar = ({ user }: Props) => {
+const ToolBar = ({ user }: PageProps) => {
     return (
         <nav className="navbar navbar-light">
             <div className="container">
