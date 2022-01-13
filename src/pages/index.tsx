@@ -1,27 +1,28 @@
-import type { NextPageContext, NextPage } from 'next';
-import { useRouter } from 'next/router';
-import cookies from 'next-cookies';
+import type { NextPage } from 'next';
+import type { User } from '../types';
+import { GetStaticProps } from 'next'
 import Layout from '../components/Layout';
 
-const Home: NextPage = () => {
+type Props = {
+  user: User
+}
+const Home: NextPage<Props> = ({ user }: Props) => {
   return (
     <>
-      <Layout>index.tsx</Layout>
+      <Layout user={user}>index.tsx</Layout>
     </>
   )
 }
 
-Home.getInitialProps = (ctx: NextPageContext) => {
-  const { token } = cookies(ctx);
-
-  if (!token || token === '') {
-    if (ctx.req && ctx.res) {
-      ctx.res.writeHead(302, { Location: '/login' })
-      ctx.res.end()
-    }
+export const getStaticProps: GetStaticProps = async (context) => {
+  const res = await fetch('http://127.0.0.1:3000/api/user')
+  const user = res.status === 401 ? null : await res.json()
+  
+  return {
+    props: {
+      user,
+    },
   }
-
-  return { token }
 }
 
 export default Home

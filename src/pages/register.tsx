@@ -14,7 +14,7 @@ const Register: NextPage = () => {
 
   return (
     <>
-      <Layout>
+      <Layout user={null}>
       <div className="auth-page">
         <div className="container page">
           <div className="row">
