@@ -23,6 +23,12 @@ const Login: NextPage<PageProps> = ({ user }: PageProps) => {
                 <p className="text-xs-center">
                   <a href="/register">Need an account?</a>
                 </p>
+
+                <ul className="error-messages">
+                  <div className="ng-scope">
+                    <li className="ng-binding ng-scope">email or password is invalid</li>
+                  </div>
+                </ul>
                 <form onSubmit={onSubmit} action="/api/login" method="POST">
                   <fieldset>
                     <fieldset className="form-group">
