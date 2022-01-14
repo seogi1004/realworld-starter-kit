@@ -1,17 +1,14 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import type { NextApiRequest, NextApiResponse } from "next";
-import type { User } from "../../types";
-import { API_HOST } from "../../constants";
+import type { NextApiRequest, NextApiResponse } from 'next';
+import type { User } from '../../types';
+import { API_HOST } from '../../constants';
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<User | null>
-) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse<User | null>) {
   const { token } = req.cookies;
   const apiRes = await fetch(`${API_HOST}/user`, {
-    method: "GET", // or 'PUT'
+    method: 'GET', // or 'PUT'
     headers: {
-      accept: "application/json",
+      accept: 'application/json',
       Authorization: `Token ${token}`,
     },
   });

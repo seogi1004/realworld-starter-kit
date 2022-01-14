@@ -1,14 +1,11 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import type { NextApiRequest, NextApiResponse } from "next";
-import type { User } from "../../types";
-import { API_HOST } from "../../constants";
+import type { NextApiRequest, NextApiResponse } from 'next';
+import type { User } from '../../types';
+import { API_HOST } from '../../constants';
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<User | null>
-) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse<User | null>) {
   const apiRes = await fetch(`${API_HOST}/users/login`, {
-    method: "POST", // or 'PUT'
+    method: 'POST', // or 'PUT'
     body: JSON.stringify({
       user: {
         email: req.body.email,
@@ -16,19 +13,20 @@ export default async function handler(
       },
     }),
     headers: {
-      accept: "application/json",
-      "Content-Type": "application/json",
+      accept: 'application/json',
+      'Content-Type': 'application/json',
     },
   });
-
   const apiData = await apiRes.json();
-  console.log(apiData.user);
 
   if (!apiData.user) {
-    res.setHeader("Set-Cookie", `token=; path=/; expires=-1`);
-    res.status(401).redirect("/login");
+    res.setHeader('Set-Cookie', 'token=; path=/; expires=-1');
+    res.status(401).redirect('/login');
   } else {
-    res.setHeader("Set-Cookie", `token=${apiData.user.token}; path=/;`);
-    res.status(200).redirect("/");
+    const now = new Date();
+    now.setTime(now.getTime() + 1 * 3600 * 1000);
+
+    res.setHeader('Set-Cookie', `token=${apiData.user.token}; path=/; expires=${now.toUTCString()}; HttpOnly`);
+    res.status(200).redirect('/');
   }
 }

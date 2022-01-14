@@ -7,7 +7,7 @@ const Home: NextPage<PageProps> = ({ user }: PageProps) => {
     <>
       <Layout user={user}>index.tsx</Layout>
     </>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
