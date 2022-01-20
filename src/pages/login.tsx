@@ -1,15 +1,26 @@
 import type { NextPage } from 'next';
-import type { PageProps } from '../types';
+import type { PageProps, LoginResponse } from '../types';
 import React, { useState } from 'react';
+import Router from 'next/router';
 import Layout from '../components/Layout';
 
 const Login: NextPage<PageProps> = ({ user }: PageProps) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    // e.preventDefault();
-    // console.log(e)
+    e.preventDefault();
+
+    const res = await fetch(`/api/login?email=${email}&password=${password}`);
+    const data: LoginResponse = await res.json();
+
+    if (email === '' || password === '')
+      setMessage('please fill in the blanks');
+    else {
+      if (data.message !== '') setMessage(data.message);
+      else Router.push({ pathname: '/' });
+    }
   };
 
   return (
@@ -24,12 +35,14 @@ const Login: NextPage<PageProps> = ({ user }: PageProps) => {
                   <a href="/register">Need an account?</a>
                 </p>
 
-                <ul className="error-messages">
-                  <div className="ng-scope">
-                    <li className="ng-binding ng-scope">email or password is invalid</li>
-                  </div>
-                </ul>
-                <form onSubmit={onSubmit} action="/api/login" method="POST">
+                {
+                  message !== '' ? (<ul className="error-messages">
+                    <div className="ng-scope">
+                      <li className="ng-binding ng-scope">{ message }</li>
+                    </div>
+                  </ul>) : ''
+                }     
+                <form onSubmit={onSubmit}>
                   <fieldset>
                     <fieldset className="form-group">
                       <input

@@ -6,6 +6,11 @@ export type User = {
   token: string;
 };
 
+export type LoginResponse = {
+  ok: boolean;
+  message: string;
+}
+
 export interface PageProps {
   user: User;
 }
