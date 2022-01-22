@@ -1,7 +1,7 @@
+import type { PageProps } from '../types'
 import React, { ReactNode } from 'react';
 import ToolBar from './ToolBar';
 import Footer from './Footer';
-import type { PageProps } from '../types'
 
 type Props = {
     children: ReactNode
