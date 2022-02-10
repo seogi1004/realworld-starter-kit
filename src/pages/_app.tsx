@@ -39,6 +39,7 @@ MyApp.getInitialProps = async (appContext: AppContext): Promise<AppInitialProps>
     ...appProps,
     pageProps: {
       user,
+      token,
     },
   };
 };
