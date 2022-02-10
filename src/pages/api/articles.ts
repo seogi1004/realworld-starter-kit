@@ -1,11 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next';
-import type { GetArticle } from '../../types';
+import type { GetArticleWrapper } from '../../types';
 import { API_HOST } from '../../constants';
-
-type GetArticleWrapper = {
-  article: GetArticle;
-};
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<GetArticleWrapper>) {
   if (req.method === 'POST') {
@@ -14,12 +10,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
       method: 'POST',
       headers: {
         accept: 'application/json',
+        'Content-Type': 'application/json',
         Authorization: `Token ${token}`,
       },
-      body: JSON.stringify(req.body),
+      body: req.body,
     });
 
     const apiData = await apiRes.json();
-    res.status(200).json(apiData);
+    res.status(apiRes.status).json(apiData);
   }
 }

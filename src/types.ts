@@ -22,4 +22,30 @@ export interface PostArticle {
   tagList: Array<string>;
 }
 
-export interface GetArticle {}
+export type PostArticleWrapper = {
+  article: PostArticle;
+};
+
+export interface Author {
+  username: string;
+  image: string;
+  bio: string | null;
+}
+
+export interface GetArticle {
+  author: Author;
+  body: string;
+  createdAt: string;
+  description: string;
+  favorited: false;
+  favoritedBy: Array<string>;
+  favoritedsCount: number;
+  slug: string;
+  tagList: Array<string>;
+  title: string;
+  updatedAt: string;
+}
+
+export type GetArticleWrapper = {
+  article: GetArticle;
+};
