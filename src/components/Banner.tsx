@@ -41,7 +41,7 @@ export default function ({ title, description, article, user }: Props) {
             </div>
             {article.author.username === user?.username ? (
               <span>
-                <a className="btn btn-outline-secondary btn-sm" href="#/editor/123123123-10135">
+                <a className="btn btn-outline-secondary btn-sm" href={`/editor/${article.slug}`}>
                   <i className="ion-edit"></i> Edit Article
                 </a>
                 <button className="btn btn-outline-danger btn-sm">

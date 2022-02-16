@@ -15,17 +15,14 @@ const Aritcle: NextPage<PageProps> = ({ user }: PageProps) => {
       method: 'GET',
     }).then(async (res) => {
       const data: GetArticleWrapper = await res.json();
+      console.log(2, data);
       setArticle(data.article);
     });
   }, []);
 
   return (
     <>
-      <Layout user={user}>
-        <div className="article-page">
-          <Banner title="" description="" article={article} user={user}></Banner>
-        </div>
-      </Layout>
+      <Layout user={user}>구현 중...</Layout>
     </>
   );
 };
