@@ -44,9 +44,11 @@ export default function ({ title, description, article, user }: Props) {
                 <a className="btn btn-outline-secondary btn-sm" href={`/editor/${article.slug}`}>
                   <i className="ion-edit"></i> Edit Article
                 </a>
+                &nbsp;
                 <button className="btn btn-outline-danger btn-sm">
                   <i className="ion-trash-a"></i> Delete Article
                 </button>
+                &nbsp;
               </span>
             ) : (
               <span>
@@ -54,10 +56,12 @@ export default function ({ title, description, article, user }: Props) {
                   <i className="ion-plus-round"></i>
                   &nbsp; Follow 토끼왕쟈
                 </button>
+                &nbsp;
                 <button className="btn btn-sm btn-outline-primary">
                   <i className="ion-heart"></i> <span>Favorite Article </span>
                   <span className="counter">(0)</span>
                 </button>
+                &nbsp;
               </span>
             )}
           </div>
