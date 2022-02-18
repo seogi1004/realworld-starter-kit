@@ -6,11 +6,11 @@ import Layout from '../components/Layout';
 import Editor from '../components/Editor';
 
 const EditorPage: NextPage<PageProps> = ({ user }: PageProps) => {
+  const [loading, setLoading] = useState<boolean>(false);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [body, setBody] = useState('');
   const [tagList, setTagList] = useState<Array<string>>([]);
-  const [loading, setLoading] = useState<boolean>(false);
 
   const onSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();

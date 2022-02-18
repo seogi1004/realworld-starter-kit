@@ -11,9 +11,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     Authorization: `Token ${token}`,
   };
 
-  if (req.method === 'POST') {
-    const apiRes = await fetch(`${API_HOST}/articles`, {
-      method: 'POST',
+  if (req.method === 'POST' || req.method === 'PUT') {
+    const afterPath = req.method === 'POST' ? '' : `/${req.query.slug}`;
+    const apiRes = await fetch(`${API_HOST}/articles${afterPath}`, {
+      method: req.method,
       headers,
       body: req.body,
     });
@@ -22,7 +23,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     res.status(apiRes.status).json(apiData);
   } else if (req.method === 'GET') {
     const apiRes = await fetch(`${API_HOST}/articles/${req.query.slug}`, {
-      method: 'GET',
+      method: req.method,
       headers,
     });
 

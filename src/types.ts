@@ -26,6 +26,12 @@ export type PostArticleWrapper = {
   article: PostArticle;
 };
 
+export type PutArticle = Omit<PostArticle, 'tagList'>;
+
+export type PutArticleWrapper = {
+  article: PutArticle;
+};
+
 export interface Author {
   username: string;
   image: string;
