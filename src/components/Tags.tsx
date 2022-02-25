@@ -25,8 +25,11 @@ const Tags = () => {
         <div>Loading tags...</div>
       ) : tags.length > 0 ? (
         <div className="tag-list">
-          <a className="tag-default tag-pill">welcome</a>
-          <a className="tag-default tag-pill">welcome</a>
+          {tags.map((tag) => (
+            <a key={tag} className="tag-default tag-pill">
+              {tag}
+            </a>
+          ))}
         </div>
       ) : (
         <div className="post-preview">No tags are here... yet.</div>

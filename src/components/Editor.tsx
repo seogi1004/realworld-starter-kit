@@ -58,7 +58,7 @@ const Editor = ({ loading, title, description, body, tagList, setTitle, setDescr
             <div className="tag-list">
               {tagList.map((tag) => {
                 return (
-                  <span className="tag-default tag-pill">
+                  <span key={tag} className="tag-default tag-pill">
                     <i className="ion-close-round" onClick={(e) => onDeleteTag(e, tag)}></i>
                     {tag}
                   </span>

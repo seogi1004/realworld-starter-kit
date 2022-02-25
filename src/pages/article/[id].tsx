@@ -37,7 +37,9 @@ const Aritcle: NextPage<PageProps> = ({ user }: PageProps) => {
                   </div>
                   <ul className="tag-list">
                     {article.tagList.map((tag) => (
-                      <li className="tag-default tag-pill tag-outline">{tag}</li>
+                      <li key={tag} className="tag-default tag-pill tag-outline">
+                        {tag}
+                      </li>
                     ))}
                   </ul>
                 </div>
@@ -56,27 +58,30 @@ const Aritcle: NextPage<PageProps> = ({ user }: PageProps) => {
                     <span className="date">{printDateString(article)}</span>
                   </div>
 
-                  <span>
-                    <a className="btn btn-outline-secondary btn-sm" href={`/editor/${article.slug}`}>
-                      <i className="ion-edit"></i> Edit Article
-                    </a>
-                    &nbsp;
-                    <button className="btn btn-outline-danger btn-sm">
-                      <i className="ion-trash-a"></i> Delete Article
-                    </button>
-                    &nbsp;
-                  </span>
-                  <span>
-                    <button className="btn btn-sm btn-outline-secondary">
-                      <i className="ion-plus-round"></i>
-                      &nbsp; Follow {article.author.username}
-                    </button>
-                    &nbsp;
-                    <button className="btn btn-sm btn-outline-primary">
-                      <i className="ion-heart"></i> <span>Favorite Article </span>
-                      <span className="counter">({article.favoritesCount})</span>
-                    </button>
-                  </span>
+                  {article.author.username === user?.username ? (
+                    <span>
+                      <a className="btn btn-outline-secondary btn-sm" href={`/editor/${article.slug}`}>
+                        <i className="ion-edit"></i> Edit Article
+                      </a>
+                      &nbsp;
+                      <button className="btn btn-outline-danger btn-sm">
+                        <i className="ion-trash-a"></i> Delete Article
+                      </button>
+                      &nbsp;
+                    </span>
+                  ) : (
+                    <span>
+                      <button className="btn btn-sm btn-outline-secondary">
+                        <i className="ion-plus-round"></i>
+                        &nbsp; Follow {article.author.username}
+                      </button>
+                      &nbsp;
+                      <button className="btn btn-sm btn-outline-primary">
+                        <i className="ion-heart"></i> <span>Favorite Article </span>
+                        <span className="counter">({article.favoritesCount})</span>
+                      </button>
+                    </span>
+                  )}
                 </div>
               </div>
             </div>
