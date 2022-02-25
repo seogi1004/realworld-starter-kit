@@ -45,7 +45,7 @@ export interface GetArticle {
   description: string;
   favorited: false;
   favoritedBy: Array<string>;
-  favoritedsCount: number;
+  favoritesCount: number;
   slug: string;
   tagList: Array<string>;
   title: string;

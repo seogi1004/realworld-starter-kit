@@ -1,6 +1,6 @@
 import type { GetArticle, User } from '../types';
 import React from 'react';
-import { DOMAIN } from '../constants';
+import { printAuthorLink, printDateString, printIconImage } from '../utility';
 
 export type Props = {
   title: string;
@@ -8,18 +8,6 @@ export type Props = {
   article?: GetArticle;
   user?: User;
 };
-
-export function printDateString(article: GetArticle): string {
-  return new Date(article.updatedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-}
-
-export function printIconImage(article: GetArticle): string {
-  return article.author.image.split('realworld-temp-api').join(DOMAIN);
-}
-
-export function printAuthorLink(article: GetArticle): string {
-  return `/@${encodeURIComponent(article.author.username)}`;
-}
 
 export default function ({ title, description, article, user }: Props) {
   return (
@@ -54,12 +42,12 @@ export default function ({ title, description, article, user }: Props) {
               <span>
                 <button className="btn btn-sm action-btn btn-outline-secondary">
                   <i className="ion-plus-round"></i>
-                  &nbsp; Follow 토끼왕쟈
+                  &nbsp; Follow {article.author.username}
                 </button>
                 &nbsp;
                 <button className="btn btn-sm btn-outline-primary">
                   <i className="ion-heart"></i> <span>Favorite Article </span>
-                  <span className="counter">(0)</span>
+                  <span className="counter">({article.favoritesCount})</span>
                 </button>
                 &nbsp;
               </span>
