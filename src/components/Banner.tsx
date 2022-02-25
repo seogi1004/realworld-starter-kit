@@ -7,9 +7,10 @@ export type Props = {
   description: string;
   article?: GetArticle;
   user?: User;
+  onDelete?: (e: React.MouseEvent<HTMLButtonElement>) => unknown;
 };
 
-export default function ({ title, description, article, user }: Props) {
+export default function ({ title, description, article, user, onDelete }: Props) {
   return (
     <div className="banner">
       <div className="container">
@@ -33,7 +34,7 @@ export default function ({ title, description, article, user }: Props) {
                   <i className="ion-edit"></i> Edit Article
                 </a>
                 &nbsp;
-                <button className="btn btn-outline-danger btn-sm">
+                <button className="btn btn-outline-danger btn-sm" onClick={onDelete}>
                   <i className="ion-trash-a"></i> Delete Article
                 </button>
                 &nbsp;

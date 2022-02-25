@@ -11,16 +11,26 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     Authorization: `Token ${token}`,
   };
 
-  if (req.method === 'POST' || req.method === 'PUT') {
+  if (req.method === 'POST' || req.method === 'PUT' || req.method === 'DELETE') {
     const afterPath = req.method === 'POST' ? '' : `/${req.query.slug}`;
-    const apiRes = await fetch(`${API_HOST}/articles${afterPath}`, {
-      method: req.method,
-      headers,
-      body: req.body,
-    });
 
-    const apiData = await apiRes.json();
-    res.status(apiRes.status).json(apiData);
+    if (req.method !== 'DELETE') {
+      const apiRes = await fetch(`${API_HOST}/articles${afterPath}`, {
+        method: req.method,
+        headers,
+        body: req.body,
+      });
+
+      const apiData = await apiRes.json();
+      res.status(apiRes.status).json(apiData);
+    } else {
+      const apiRes = await fetch(`${API_HOST}/articles${afterPath}`, {
+        method: req.method,
+        headers,
+      });
+
+      res.status(apiRes.status).end();
+    }
   } else if (req.method === 'GET') {
     const apiRes = await fetch(`${API_HOST}/articles/${req.query.slug}`, {
       method: req.method,

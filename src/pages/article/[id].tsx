@@ -2,6 +2,7 @@ import type { NextPage } from 'next';
 import type { PageProps, GetArticleWrapper, GetArticle } from '../../types';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import Router from 'next/router';
 import { printAuthorLink, printDateString, printIconImage } from '../../utility';
 import Layout from '../../components/Layout';
 import Banner from '../../components/Banner';
@@ -20,11 +21,23 @@ const Aritcle: NextPage<PageProps> = ({ user }: PageProps) => {
     });
   }, []);
 
+  const onDelete = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
+    const res = await fetch(`/api/articles?slug=${router.query.id}`, {
+      method: 'DELETE',
+    });
+
+    if (res.status === 204) {
+      Router.push({ pathname: `/` });
+    }
+  };
+
   return (
     <>
       <Layout user={user}>
         <div className="article-page">
-          <Banner title="" description="" article={article} user={user}></Banner>
+          <Banner title="" description="" article={article} user={user} onDelete={onDelete}></Banner>
 
           {article ? (
             <div className="container page">
@@ -64,7 +77,7 @@ const Aritcle: NextPage<PageProps> = ({ user }: PageProps) => {
                         <i className="ion-edit"></i> Edit Article
                       </a>
                       &nbsp;
-                      <button className="btn btn-outline-danger btn-sm">
+                      <button className="btn btn-outline-danger btn-sm" onClick={onDelete}>
                         <i className="ion-trash-a"></i> Delete Article
                       </button>
                       &nbsp;
